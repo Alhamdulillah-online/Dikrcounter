@@ -1,38 +1,39 @@
-# ദിക്ർ കൗണ്ടർ
+# Dhikr Counter
 
-മലയാളത്തിലും അറബിയിലും ദിക്ർ എണ്ണാൻ ഒരുക്കിയ ശാന്തവും mobile-friendly-യുമായ static website. HTML, CSS, vanilla JavaScript മാത്രം ഉപയോഗിക്കുന്നു; account, backend, database, tracking എന്നിവയില്ല.
+A calm, mobile-friendly Dhikr and Tasbeeh counter with an English interface and Arabic remembrance text. Search metadata includes English, Malayalam, and Arabic terms. The site uses HTML, CSS, and vanilla JavaScript only; it has no account, backend, database, cookies, or tracking.
 
-## സവിശേഷതകൾ
+## Features
 
-സുബ്ഹാനല്ലാഹ്, അൽഹംദുലില്ലാഹ്, അല്ലാഹു അക്ബർ, അസ്തഗ്ഫിറുല്ലാഹ് എന്നിവയിൽ നിന്ന് തിരഞ്ഞെടുക്കാം. 33, 99, 100 അല്ലെങ്കിൽ സ്വന്തം ലക്ഷ്യം നൽകാം. Tap ചെയ്ത് എണ്ണം കൂട്ടാം, തെറ്റായാൽ കുറയ്ക്കാം, തിരഞ്ഞെടുത്ത ദിക്ർ മാത്രം reset ചെയ്യാം. ലക്ഷ്യ പുരോഗതി ring-ൽ കാണിക്കും.
+Choose SubhanAllah, Alhamdulillah, Allahu Akbar, or Astaghfirullah. Set a goal of 33, 99, 100, or a custom number; tap to count, decrement a mistaken count, and reset only the selected remembrance. A progress ring shows the selected goal.
 
-ഓരോ ദിക്‌റിന്റെയും എണ്ണവും theme തിരഞ്ഞെടുപ്പും ആ browser/device-യിലെ `localStorage`-ൽ സൂക്ഷിക്കുന്നു. അവ മറ്റൊരു device/browser-ലേക്ക് sync ചെയ്യില്ല. Site data clear ചെയ്താൽ സേവ് ചെയ്ത എണ്ണങ്ങളും തീം preference-ഉം മായാം. Cloud backup ഇല്ല.
+Counts for each remembrance and the theme choice are stored only in that browser's `localStorage`. They do not sync to another device or browser, and clearing site data may erase them. There is no cloud backup.
 
-“Manqoos Moulid” ബട്ടൺ നേരിട്ട് [Manqoos Moulid reader](https://alhamdulillah-online.github.io/manqoosmoulid/) തുറക്കും.
+The **Manqoos Moulid** button opens the requested [Manqoos Moulid reader](https://alhamdulillah-online.github.io/manqoosmoulid/).
 
-## ഫയലുകൾ
+## Files
 
 ```text
 .
-├── index.html       # Malayalam/Arabic page content, SEO, structured data
+├── index.html       # English interface, multilingual SEO keywords, structured data
 ├── styles.css       # Responsive emerald/gold themes and accessible controls
-├── app.js           # Counter, targets, local persistence, theme and feedback
+├── app.js           # Counter, goals, local persistence, theme, and feedback
 ├── og-image.jpg     # Optimized 1200×675 social preview and panel artwork
 ├── favicon.svg      # Eight-point emerald/gold brand icon
-├── robots.txt       # Search crawler access and sitemap reference
-├── sitemap.xml      # Public home-page URL
+├── robots.txt       # Generic crawler access rules
 ├── .nojekyll        # Serves static files without Jekyll processing
-├── manus-routes.json # Single public route declaration for preview tooling
-├── plan.md          # Design and implementation decisions
-└── TODO.md          # Requested outcomes and completion status
+├── manus-routes.json # Single-page route declaration for preview tooling
+├── plan.md          # English design and implementation decisions
+└── TODO.md          # English completion status
 ```
 
-## GitHub Pages
+## Enable GitHub Pages
 
-Repository-ന്റെ **Settings → Pages → Build and deployment** തുറക്കുക. **Deploy from a branch** തിരഞ്ഞെടുക്കുക; branch `main`, folder `/(root)` ആയി സജ്ജമാക്കി Save ചെയ്യുക. Deployment പൂർത്തിയായാൽ site URL `https://alhamdulillah-online.github.io/Dikrcounter/` ആയിരിക്കും. `index.html` root-ൽ ഉള്ളതിനാൽ build command ആവശ്യമില്ല.
+The source has been pushed to the public `Alhamdulillah-online/Dikrcounter` repository. To publish it, open **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, then select branch `main` and folder `/(root)`, and save. GitHub will show the configured site URL and deployment status there. No build command is needed because `index.html` is in the repository root.
 
-സൈറ്റ് മാറ്റാൻ source edit ചെയ്ത് `main`-ലേക്ക് commit/push ചെയ്യുക. GitHub Pages branch update-നുശേഷം വീണ്ടും deploy ചെയ്യും. Public URL മാറിയാൽ `index.html`-ലെ canonical, Open Graph, JSON-LD വിലാസങ്ങളും `sitemap.xml`, `robots.txt` എന്നിവയും പുതുക്കണം.
+GitHub Pages could not be enabled through the available repository API permissions, so the site is not yet confirmed live. After enabling Pages, use the exact URL GitHub reports. Add that confirmed origin to the canonical and Open Graph URL metadata, then add a `sitemap.xml` and its `Sitemap:` entry in `robots.txt`. These origin-dependent SEO URLs are intentionally omitted for now rather than guessed.
 
-## പ്രാദേശികമായി പരിശോധിക്കുക
+To update the site, edit the source files and push to `main`; Pages will redeploy from the branch. Keep the exact Manqoos Moulid destination unchanged unless the owner requests a different one.
 
-Repository root-ൽ `python3 -m http.server 8000` പ്രവർത്തിപ്പിച്ച് `http://localhost:8000` തുറക്കുക. Counter എണ്ണം കൂട്ടുക/കുറയ്ക്കുക, ഓരോ ദിക്‌റിന്റെയും എണ്ണം വേറിട്ട് നിലനിൽക്കുന്നു എന്ന് നോക്കുക, custom ലക്ഷ്യം പ്രയോഗിക്കുക, reload-നുശേഷം എണ്ണം/theme തുടരുന്നുണ്ടോ പരിശോധിക്കുക. `file://` വഴി നേരിട്ട് തുറക്കാതെ HTTP static server ഉപയോഗിക്കുക.
+## Run locally
+
+From the repository root, run `python3 -m http.server 8000` and open `http://localhost:8000`. Try increment/decrement, separate counts for each remembrance, a custom goal, and theme/count persistence after reloading. Use an HTTP static server rather than opening the file directly with `file://`.

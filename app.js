@@ -6,24 +6,24 @@
   const MAX_TARGET = 99999;
   const dhikrData = {
     subhanallah: {
-      name: "സുബ്ഹാനല്ലാഹ്",
+      name: "SubhanAllah",
       arabic: "سُبْحَانَ اللّٰهِ",
-      transliteration: "Subḥānallāh"
+      meaning: "Glory be to Allah."
     },
     alhamdulillah: {
-      name: "അൽഹംദുലില്ലാഹ്",
+      name: "Alhamdulillah",
       arabic: "الْحَمْدُ لِلّٰهِ",
-      transliteration: "Alḥamdulillāh"
+      meaning: "All praise is for Allah."
     },
     allahuakbar: {
-      name: "അല്ലാഹു അക്ബർ",
+      name: "Allahu Akbar",
       arabic: "اللّٰهُ أَكْبَرُ",
-      transliteration: "Allāhu akbar"
+      meaning: "Allah is the Greatest."
     },
     astaghfirullah: {
-      name: "അസ്തഗ്ഫിറുല്ലാഹ്",
+      name: "Astaghfirullah",
       arabic: "أَسْتَغْفِرُ اللّٰهَ",
-      transliteration: "Astaghfirullāh"
+      meaning: "I seek forgiveness from Allah."
     }
   };
 
@@ -41,11 +41,11 @@
   const themeToggle = document.getElementById("theme-toggle");
   const activeName = document.getElementById("active-dhikr-name");
   const activeArabic = document.getElementById("active-dhikr-arabic");
-  const activeTransliteration = document.getElementById("active-dhikr-transliteration");
+  const activeMeaning = document.getElementById("active-dhikr-transliteration");
   const optionButtons = [...document.querySelectorAll("[data-dhikr]")];
   const targetButtons = [...document.querySelectorAll("[data-target]")];
   const circumference = 2 * Math.PI * 116;
-  const numberFormat = new Intl.NumberFormat("en-IN");
+  const numberFormat = new Intl.NumberFormat("en-US");
 
   function cleanCount(value) {
     const number = Number(value);
@@ -87,7 +87,7 @@
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (_error) {
-      counterStatus.textContent = "ഈ ബ്രൗസറിൽ എണ്ണം സൂക്ഷിക്കാൻ കഴിഞ്ഞില്ല.";
+      counterStatus.textContent = "This browser could not save your count.";
     }
   }
 
@@ -99,7 +99,7 @@
     const next = theme === "light" ? "light" : "dark";
     root.dataset.theme = next;
     themeToggle.setAttribute("aria-pressed", String(next === "light"));
-    themeToggle.setAttribute("aria-label", next === "dark" ? "ലൈറ്റ് തീം ഉപയോഗിക്കുക" : "ഡാർക്ക് തീം ഉപയോഗിക്കുക");
+    themeToggle.setAttribute("aria-label", next === "dark" ? "Switch to light theme" : "Switch to dark theme");
     if (save) {
       try {
         window.localStorage.setItem(THEME_KEY, next);
@@ -124,13 +124,13 @@
     const phrase = dhikrData[state.activeDhikr];
 
     countValue.textContent = formatNumber(count);
-    countButton.setAttribute("aria-label", `${phrase.name} ${formatNumber(count)}. ഒരു തവണ കൂടി എണ്ണാൻ തൊടുക.`);
+    countButton.setAttribute("aria-label", `Count ${phrase.name}. Current count: ${formatNumber(count)}. Activate to count once more.`);
     activeName.textContent = phrase.name;
     activeArabic.textContent = phrase.arabic;
-    activeTransliteration.textContent = phrase.transliteration;
+    activeMeaning.textContent = phrase.meaning;
     targetSummary.textContent = formatNumber(state.target);
     remainingCount.textContent = formatNumber(remaining);
-    progressLabel.textContent = `${percent}% പൂർത്തിയായി`;
+    progressLabel.textContent = `${percent}% complete`;
     progressRing.style.strokeDasharray = String(circumference);
     progressRing.style.strokeDashoffset = String(circumference * (1 - percent / 100));
     decreaseButton.disabled = count === 0;
@@ -154,13 +154,13 @@
 
   function setTarget(target) {
     if (!Number.isSafeInteger(target) || target < 1 || target > MAX_TARGET) {
-      counterStatus.textContent = `1 മുതൽ ${formatNumber(MAX_TARGET)} വരെ ലക്ഷ്യം നൽകുക.`;
+      counterStatus.textContent = `Choose a goal between 1 and ${formatNumber(MAX_TARGET)}.`;
       return false;
     }
     state.target = target;
     saveState();
     updateView();
-    counterStatus.textContent = `${formatNumber(target)} എന്ന പുതിയ ലക്ഷ്യം തിരഞ്ഞെടുത്തു.`;
+    counterStatus.textContent = `Goal set to ${formatNumber(target)}.`;
     return true;
   }
 
@@ -170,7 +170,7 @@
       state.activeDhikr = button.dataset.dhikr;
       saveState();
       updateView();
-      counterStatus.textContent = `${dhikrData[state.activeDhikr].name} തിരഞ്ഞെടുത്തു.`;
+      counterStatus.textContent = `${dhikrData[state.activeDhikr].name} selected.`;
     });
   });
 
@@ -181,7 +181,7 @@
     saveState();
     updateView();
     if (previousCount < state.target && currentCount >= state.target) {
-      counterStatus.textContent = `മാഷാ അല്ലാഹ്! ${formatNumber(state.target)} എന്ന ലക്ഷ്യം പൂർത്തിയായി.`;
+      counterStatus.textContent = `Masha'Allah! You reached your goal of ${formatNumber(state.target)}.`;
     } else {
       counterStatus.textContent = `${dhikrData[state.activeDhikr].name}: ${formatNumber(currentCount)}.`;
     }
@@ -192,17 +192,17 @@
     state.counts[state.activeDhikr] -= 1;
     saveState();
     updateView();
-    counterStatus.textContent = "ഒരു എണ്ണം കുറച്ചു.";
+    counterStatus.textContent = "One count removed.";
   });
 
   resetButton.addEventListener("click", () => {
     const phrase = dhikrData[state.activeDhikr].name;
-    const approved = window.confirm(`${phrase} എന്ന ദിക്‌റിന്റെ സംരക്ഷിച്ച എണ്ണം മാത്രം reset ചെയ്യണോ?`);
+    const approved = window.confirm(`Reset the saved count for ${phrase}?`);
     if (!approved) return;
     state.counts[state.activeDhikr] = 0;
     saveState();
     updateView();
-    counterStatus.textContent = `${phrase} എന്ന ദിക്‌റിന്റെ എണ്ണം reset ചെയ്തു.`;
+    counterStatus.textContent = `${phrase} count reset.`;
   });
 
   targetButtons.forEach((button) => {
