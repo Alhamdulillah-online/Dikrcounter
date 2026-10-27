@@ -197,6 +197,7 @@ h1, h2, p { margin-top: 0; }
 .footer-brand { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-weight: 600; text-decoration: none; }
 .footer-mark { color: var(--gold); font-size: 14px; }
 .site-footer p { margin: 0; }
+.creator-credit strong { color: var(--gold-bright); font-weight: 700; }
 .footer-year { margin-left: auto; font-family: system-ui, sans-serif; font-variant-numeric: tabular-nums; }
 .noscript-message { position: fixed; z-index: 20; inset: auto 12px 12px; padding: 15px; border: 1px solid var(--line); border-radius: 15px; background: var(--panel-solid); color: var(--ink); text-align: center; }
 

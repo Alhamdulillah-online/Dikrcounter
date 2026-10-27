@@ -1,6 +1,6 @@
 # Dhikr Counter
 
-A calm, mobile-friendly Dhikr and Tasbeeh counter with an English interface and Arabic remembrance text. Search metadata includes English, Malayalam, and Arabic terms. The site uses HTML, CSS, and vanilla JavaScript only; it has no account, backend, database, cookies, or tracking.
+A calm, mobile-friendly Dhikr and Tasbeeh counter created by **Risham004**, with an English interface and Arabic remembrance text. Search metadata includes English, Malayalam, and Arabic terms. The site uses HTML, CSS, and vanilla JavaScript only; it has no account, backend, database, cookies, or tracking.
 
 ## Features
 
